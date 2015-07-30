@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="devices">
+        <item>苹果</item>
+        <item>三星</item>
+        <item>诺基亚</item>
+        <item>小米</item>
+        <item>HTC</item>
+        <item>魅族</item>
+        <item>华为</item>
+        <item>努比亚</item>
+        <item>OPPO</item>
+        <item>vivo</item>
+    </array>
+</resources>
