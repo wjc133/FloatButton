@@ -2,12 +2,14 @@ package com.elite.floatbutton;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.elite.floatbutton.adapter.MutlipleItemAdapter;
+import com.elite.floatbutton.adapter.NormalRecyclerViewAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
-        mRecyclerView.setAdapter(new NormalRecyclerViewAdapter(this));
+//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerView.setAdapter(new NormalRecyclerViewAdapter(this));
+        mRecyclerView.setAdapter(new MutlipleItemAdapter(this));
     }
 
     private void findView() {
