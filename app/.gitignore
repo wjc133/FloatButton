@@ -6,7 +6,7 @@
 # Gradle files
 /build
 .gradle/
-*/build/
+
 
 
 # IDEA
