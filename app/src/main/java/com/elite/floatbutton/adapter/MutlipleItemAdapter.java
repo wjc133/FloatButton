@@ -2,6 +2,7 @@ package com.elite.floatbutton.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +23,16 @@ public class MutlipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TYPE_TEXT
     }
 
-    private final Context mContext;
     private final LayoutInflater mInflater;
+    private ViewGroup mParent;
     private final String[] mTitles;
     public MutlipleItemAdapter(Context context){
         mInflater=LayoutInflater.from(context);
-        mContext=context;
         mTitles=context.getResources().getStringArray(R.array.devices);
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mParent=parent;
         RecyclerView.ViewHolder holder;
         if (viewType==ITEM_TYPE.TYPE_IMAGE.ordinal()) {
             holder = new ImageViewHolder(mInflater.inflate(R.layout.list_item_image, parent, false));
@@ -85,8 +86,14 @@ public class MutlipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v) {
                     if (getLayoutPosition()==0){
-                        Intent intent=new Intent(mContext, TestObserverActivity.class);
-                        mContext.startActivity(intent);
+                        Snackbar.make(mParent,"您点击了第"+getLayoutPosition()+"个位置",
+                        Snackbar.LENGTH_SHORT)
+                                .setAction(R.string.action_notify, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                }).show();
                     }
                 }
             });

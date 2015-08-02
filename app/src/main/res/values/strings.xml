@@ -15,4 +15,6 @@
     <string name="theme_light">日间模式</string>
     <string name="theme_night">夜间模式</string>
     <string name="theme_movie">电影模式</string>
+
+    <string name="action_notify">确定</string>
 </resources>
