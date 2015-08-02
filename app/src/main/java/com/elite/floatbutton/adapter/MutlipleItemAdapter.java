@@ -1,6 +1,7 @@
 package com.elite.floatbutton.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.elite.floatbutton.R;
+import com.elite.floatbutton.test.TestObserverActivity;
 
 /**
  * Elite Group
@@ -20,10 +22,12 @@ public class MutlipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TYPE_TEXT
     }
 
+    private final Context mContext;
     private final LayoutInflater mInflater;
     private final String[] mTitles;
     public MutlipleItemAdapter(Context context){
         mInflater=LayoutInflater.from(context);
+        mContext=context;
         mTitles=context.getResources().getStringArray(R.array.devices);
     }
     @Override
@@ -56,7 +60,7 @@ public class MutlipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return position%2==0?ITEM_TYPE.TYPE_IMAGE.ordinal():ITEM_TYPE.TYPE_TEXT.ordinal();
     }
 
-    public static class TextViewHolder extends RecyclerView.ViewHolder {
+    public class TextViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         public TextViewHolder(View itemView) {
             super(itemView);
@@ -70,7 +74,7 @@ public class MutlipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public static class ImageViewHolder extends RecyclerView.ViewHolder {
+    public class ImageViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
         public ImageViewHolder(View itemView) {
@@ -80,7 +84,10 @@ public class MutlipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (getLayoutPosition()==0){
+                        Intent intent=new Intent(mContext, TestObserverActivity.class);
+                        mContext.startActivity(intent);
+                    }
                 }
             });
         }

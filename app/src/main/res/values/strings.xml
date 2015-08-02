@@ -5,4 +5,14 @@
     <string name="action_settings">Settings</string>
 
     <string name="main_action_title">艾立特智控</string>
+
+    <string name="navi_info">用户信息</string>
+    <string name="navi_devices">设备信息</string>
+    <string name="navi_state">状态监控</string>
+    <string name="navi_data">数据维护</string>
+    <string name="navi_theme">主题模式</string>
+
+    <string name="theme_light">日间模式</string>
+    <string name="theme_night">夜间模式</string>
+    <string name="theme_movie">电影模式</string>
 </resources>

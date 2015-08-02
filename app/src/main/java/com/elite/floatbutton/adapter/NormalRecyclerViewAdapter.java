@@ -49,7 +49,6 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                 }
             });
         }

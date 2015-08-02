@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="192dp"
+    android:background="?attr/colorPrimaryDark"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/text_userinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="高级VIP用户"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_username"
+        android:text="大海梦想"
+        android:layout_above="@id/text_userinfo"
+        android:layout_marginBottom="5dp"/>
+    <ImageView
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/image_user_photo"
+        android:layout_above="@id/text_username"
+        android:src="@drawable/bee"/>
+
+</RelativeLayout>
