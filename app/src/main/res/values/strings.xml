@@ -17,4 +17,7 @@
     <string name="theme_movie">电影模式</string>
 
     <string name="action_notify">确定</string>
+
+    <string name="frag_info_user_hint">请输入用户名</string>
+    <string name="frag_info_pass_hint">请输入密码</string>
 </resources>

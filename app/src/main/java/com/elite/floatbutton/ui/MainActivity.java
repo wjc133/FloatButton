@@ -1,24 +1,23 @@
-package com.elite.floatbutton;
+package com.elite.floatbutton.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.elite.floatbutton.adapter.MutlipleItemAdapter;
+import com.elite.floatbutton.R;
+import com.elite.floatbutton.ui.fragment.DevicesFragment;
+import com.elite.floatbutton.ui.fragment.InfoFragment;
+import com.elite.floatbutton.utils.NavigationUtils;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private Toolbar mToolbar;
-    private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
 
@@ -33,20 +32,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void configView() {
         mToolbar.setTitle(R.string.main_action_title);
-        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+//        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 //        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         setSupportActionBar(mToolbar);
+
+        //单独使用ToolBar
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                return false;
+//            }
+//        });
 
         final ActionBar ab=getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         ab.setDisplayHomeAsUpEnabled(true);
-//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mRecyclerView.setAdapter(new NormalRecyclerViewAdapter(this));
-        mRecyclerView.setAdapter(new MutlipleItemAdapter(this));
-
         setupDrawerContent(mNavigationView);
 
+        NavigationUtils.addFragment(this, new InfoFragment());
     }
 
     private void setupDrawerContent(final NavigationView view) {
@@ -59,6 +68,20 @@ public class MainActivity extends AppCompatActivity {
                 menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
                 prevItem=menuItem;
+
+                switch (menuItem.getItemId()){
+                    case R.id.navi_info:
+                        NavigationUtils.replaceFragment(MainActivity.this, new InfoFragment());
+                        break;
+                    case R.id.navi_devices:
+                        NavigationUtils.replaceFragment(MainActivity.this, new DevicesFragment());
+                        break;
+                    case R.id.navi_theme_light:
+                        NavigationUtils.startActivity(MainActivity.this,AppBarActivity.class);
+                    default:
+                        NavigationUtils.replaceFragment(MainActivity.this, new InfoFragment());
+                        break;
+                }
                 return true;
             }
         });
@@ -66,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void findView() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
-        mRecyclerView=(RecyclerView)findViewById(R.id.cyc_main);
         mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_main);
         mNavigationView = (NavigationView) findViewById(R.id.nv_menu);
     }
