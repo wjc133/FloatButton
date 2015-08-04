@@ -34,7 +34,7 @@ public class NavigationUtils {
         activity.getFragmentManager().beginTransaction().add(R.id.main_content, fragment).commit();
     }
 
-    public static void startActivity(Activity activity, Class<AppBarActivity> activityClass) {
+    public static void startActivity(Activity activity, Class<? extends Activity> activityClass) {
         Intent intent=new Intent(activity,activityClass);
         activity.startActivity(intent);
     }
