@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/login_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="#b7ff79" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/login_checkable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="登陆选项"
+            android:textSize="30sp"/>
+
+        <CheckBox
+            android:id="@+id/check_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_checkable"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            android:text="保存密码"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/check_save"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="自动登录"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/login_red"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_below="@id/check_auto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/circle" />
+    </RelativeLayout>
+</FrameLayout>

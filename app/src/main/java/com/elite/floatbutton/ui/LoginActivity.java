@@ -8,10 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.elite.floatbutton.R;
+import com.elite.floatbutton.utils.NavigationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,11 @@ public class LoginActivity extends Activity {
     private ViewPager viewPager;
     private LoginAdapter mAdapter;
     private TextInputLayout userInput, passInput;
-    private ImageButton loginBtn, loginBtn2;
-    private TextView loginText, loginText2;
+    private ImageButton loginBtn;
+    private ImageButton btn_red;
+    private TextView btn_blue;
+    private CheckBox check_auto, check_save;
+    private TextView loginText;
     private LoginTransformer mTransformer;
 
     @Override
@@ -51,8 +56,8 @@ public class LoginActivity extends Activity {
         viewContainer = new ArrayList<>();
 
         LayoutInflater inflater = getLayoutInflater();
-        View view1 = inflater.inflate(R.layout.tab_welcome, null);
-        View view2 = inflater.inflate(R.layout.tab_login_info, null);
+        View view1 = inflater.inflate(R.layout.tab_login_info, null);
+        View view2 = inflater.inflate(R.layout.tab_login_checkable, null);
         viewContainer.add(view1);
         viewContainer.add(view2);
 
@@ -62,15 +67,30 @@ public class LoginActivity extends Activity {
     }
 
     private void configChildView() {
-        loginText = (TextView) viewContainer.get(0).findViewById(R.id.login_title);
+        userInput = (TextInputLayout) viewContainer.get(0).findViewById(R.id.edit_user);
+        passInput = (TextInputLayout) viewContainer.get(0).findViewById(R.id.edit_pass);
         loginBtn = (ImageButton) viewContainer.get(0).findViewById(R.id.login_ok);
-        userInput = (TextInputLayout) viewContainer.get(1).findViewById(R.id.edit_user);
-        passInput = (TextInputLayout) viewContainer.get(1).findViewById(R.id.edit_pass);
-        loginBtn2 = (ImageButton) viewContainer.get(1).findViewById(R.id.login_ok);
-        loginText2 = (TextView) viewContainer.get(1).findViewById(R.id.login_title);
+        loginText = (TextView) viewContainer.get(0).findViewById(R.id.login_title);
+
+        btn_blue = (TextView) viewContainer.get(1).findViewById(R.id.login_checkable);
+        btn_red = (ImageButton) viewContainer.get(1).findViewById(R.id.login_red);
+        check_auto = (CheckBox) viewContainer.get(1).findViewById(R.id.check_auto);
+        check_save = (CheckBox) viewContainer.get(1).findViewById(R.id.check_save);
 
         userInput.setHint("用户名");
         passInput.setHint("密码");
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username=userInput.getEditText().getText().toString().trim();
+                String password=passInput.getEditText().getText().toString().trim();
+                if (username.equals("123")&&password.equals("123")){
+                    NavigationUtils.startActivity(LoginActivity.this,MainActivity.class);
+                    finish();
+                }
+            }
+        });
     }
 
     private class LoginAdapter extends PagerAdapter {
@@ -102,13 +122,25 @@ public class LoginActivity extends Activity {
         @Override
         public void transformPage(View page, float position) {
             int pageWidth = page.getWidth();
-            int pageHeight = page.getHeight();
-            if (position > 1 || position < -1) {
+            if (position < -1) {
                 page.setAlpha(0f);
-            } else if (position <= 1) {
-                loginBtn.setTranslationY((float)((1-position)*0.5*pageWidth));
-                loginText.setTranslationY((float)(-(1-position)*0.5*pageWidth));
-                loginText.setTranslationX((1-position)*pageWidth);
+            }else if (position <= 1) {
+                float scaleFactor = -(1 - position) * pageWidth;
+                loginBtn.setTranslationX((float) (scaleFactor * 1.4));
+                loginText.setTranslationX((float) (scaleFactor * 1.2));
+                userInput.setTranslationX((float) (scaleFactor * 1.7));
+                passInput.setTranslationX((float) (scaleFactor * 1.9));
+
+                btn_blue.setTranslationX((position) * (pageWidth / 3));
+                btn_red.setTranslationX((position) * pageWidth);
+                check_auto.setTranslationX((position) * (pageWidth / 2));
+                check_save.setTranslationX((position) * pageWidth);
+
+                page.findViewById(R.id.login_background).setAlpha(1 - Math.abs(position));
+//                page.findViewById(R.id.login_background).setTranslationX(pageWidth*(-position));
+                page.setTranslationX(pageWidth * (-position));
+            } else {
+                page.setAlpha(0f);
             }
         }
     }
