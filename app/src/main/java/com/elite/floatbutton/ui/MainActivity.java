@@ -84,6 +84,10 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.navi_theme_movie:
                         NavigationUtils.startActivity(MainActivity.this, ViewAnimActivity.class);
+                        break;
+                    case R.id.navi_theme_night:
+                        NavigationUtils.startActivity(MainActivity.this,TransitionActivity.class);
+                        break;
                     default:
                         NavigationUtils.replaceFragment(MainActivity.this, new InfoFragment());
                         break;

@@ -19,8 +19,8 @@
         <activity android:name=".test.TestObserverActivity"/>
         <activity android:name=".ui.AppBarActivity"/>
         <activity android:name=".ui.ViewAnimActivity"/>
-        <activity android:name=".ui.LoginActivity">
-        </activity>
+        <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".ui.TransitionActivity"/>
     </application>
 
 </manifest>
