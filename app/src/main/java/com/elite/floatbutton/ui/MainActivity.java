@@ -1,19 +1,26 @@
 package com.elite.floatbutton.ui;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.method.Touch;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.elite.floatbutton.R;
 import com.elite.floatbutton.ui.fragment.CardFilpDemoFragment;
 import com.elite.floatbutton.ui.fragment.DevicesFragment;
 import com.elite.floatbutton.ui.fragment.InfoFragment;
 import com.elite.floatbutton.utils.NavigationUtils;
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 
 public class MainActivity extends BaseActivity {
@@ -21,7 +28,8 @@ public class MainActivity extends BaseActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
-    private boolean needBack=false;
+    private boolean needBack = false;
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +64,23 @@ public class MainActivity extends BaseActivity {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         ab.setDisplayHomeAsUpEnabled(true);
         setupDrawerContent(mNavigationView);
+        configFab();
 
         NavigationUtils.addFragment(this, new InfoFragment());
+    }
+
+    private void configFab() {
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MusicActivity.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, mFab, "sharedImage").toBundle());
+                } else {
+                    ActivityTransitionLauncher.with(MainActivity.this).from(v).launch(intent);
+                }
+            }
+        });
     }
 
     private void setupDrawerContent(final NavigationView view) {
@@ -86,7 +109,10 @@ public class MainActivity extends BaseActivity {
                         NavigationUtils.startActivity(MainActivity.this, ViewAnimActivity.class);
                         break;
                     case R.id.navi_theme_night:
-                        NavigationUtils.startActivity(MainActivity.this,TransitionActivity.class);
+                        NavigationUtils.startActivity(MainActivity.this, TransitionActivity.class);
+                        break;
+                    case R.id.navi_data:
+                        NavigationUtils.startActivity(MainActivity.this, TouchActivity.class);
                         break;
                     default:
                         NavigationUtils.replaceFragment(MainActivity.this, new InfoFragment());
@@ -101,6 +127,7 @@ public class MainActivity extends BaseActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_main);
         mNavigationView = (NavigationView) findViewById(R.id.nv_menu);
+        mFab = (FloatingActionButton) findViewById(R.id.fab_main);
     }
 
     @Override
@@ -123,12 +150,12 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         if (id == R.id.action_change) {
-            if (needBack){
+            if (needBack) {
                 getFragmentManager().popBackStack();
-                needBack=false;
+                needBack = false;
                 return true;
             }
-            needBack=true;
+            needBack = true;
             getFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_left_in, R.animator.card_flip_left_out, R.animator.card_flip_right_in, R.animator.card_flip_right_out)
                     .replace(R.id.main_content, new CardFilpDemoFragment()).addToBackStack(null).commit();
         }
